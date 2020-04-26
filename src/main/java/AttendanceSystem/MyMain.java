@@ -13,51 +13,38 @@ import java.util.Map;
 
 public class MyMain {
 
-    public static void main(String[] args) {
+    public synchronized static void main(String[] args) {
     	System.out.print("Hello");
-    	 try {
-    		File file = new File("attendancesystem-7604d-firebase-adminsdk-kdrhc-ef35be211b.json");
- 	        FileInputStream serviceAccount = new FileInputStream(file);
- 	        		
- 			FirebaseOptions options = new FirebaseOptions.Builder()
- 			  .setCredentials(GoogleCredentials.fromStream(serviceAccount))
- 			  .setDatabaseUrl("https://attendancesystem-7604d.firebaseio.com/")
- 			  .build();
- 			
- 			FirebaseApp.initializeApp(options);
- 			
-    	 }catch(Exception e) {
-    		 System.out.println("Error" + e.getMessage());
-    	 }
-    	final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    	DatabaseReference ref;
+    	Firebase obj = new Firebase();
+    	ref = obj.setRef("/");
     	
-    	DatabaseReference ref = database.getReference("/");
-    	Map<String, String> users = new HashMap<>();
-    	users.put("alanisawesome","asdsdf");
-    	users.put("gracehop", "December 9, 190 Grace Hopper");
-
-    	ref.child("Apple").setValueAsync("priority");
-    	
+    	  	
     	
     	ref.child("Apple").addValueEventListener(new ValueEventListener() {
-    		  @Override
-    		  public void onDataChange(DataSnapshot dataSnapshot) {
-    		    String s = (String) dataSnapshot.getValue();
-    		    System.out.println(s);
-    		  }
+  		  @Override
+  		  public void onDataChange(DataSnapshot dataSnapshot) {
+  		    String s = (String) dataSnapshot.getValue();
+  		    System.out.println(s);
+  		  }
 
-    		  @Override
-    		  public void onCancelled(DatabaseError databaseError) {
-    		    System.out.println("The read failed: " + databaseError.getCode());
-    		  }
-    		});
-    	try {
-			Thread.sleep(1000000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	System.out.println("Firebase" + database  +  "    " + ref);	
+  		  @Override
+  		  public void onCancelled(DatabaseError databaseError) {
+  		    System.out.println("The read failed: " + databaseError.getCode());
+  		  }
+  		});
+    	
+    	//obj.SleepThread(100000);
+    	
+    	Employee emp1 = new Employee("name", 25, "empId" , 5.6f, 2.5f);
+    	emp1.attendancePunch();
+    	obj.SleepThread(1000);
+    	emp1.attendancePunch();
+    	//emp1.getHrs(0);
+    	System.out.println("Salary " + emp1.calSalary());
+    	
+    	obj.saveData("Emp1", emp1);
+    	obj.SleepThread(100000);
     	
     }
 }
