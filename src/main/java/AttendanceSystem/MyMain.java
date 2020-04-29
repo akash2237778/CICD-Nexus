@@ -12,20 +12,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyMain {
+	public static Organisation org1;
 
     public synchronized static void main(String[] args) {
-    	System.out.print("Hello");
+    //	System.out.print("Hello");
     	DatabaseReference ref;
     	Firebase obj = new Firebase();
     	ref = obj.setRef("/");
+    	//org1 = new Organisation();
     	
-    	  	
+    	System.out.println("1");	
     	
-    	ref.child("Apple").addValueEventListener(new ValueEventListener() {
+    	ref.addValueEventListener(new ValueEventListener() {
   		  @Override
   		  public void onDataChange(DataSnapshot dataSnapshot) {
-  		    String s = (String) dataSnapshot.getValue();
-  		    System.out.println(s);
+  			//  dataSnapshot = dataSnapshot.child("Organisation");
+  			//System.out.println("HeEMPo" + dataSnapshot.getValue(Employee.class));
+  			//System.out.println("Helllllooo" + dataSnapshot.getValue(Organisation.class));
+  			
+  			org1 = dataSnapshot.getValue(Organisation.class);
+  			System.out.println("ID" + org1.id);
+  			org1.addEmp("name", 2 , 5.5f, 2.4f);
+  	    	org1.punch("empId0");
+  			//org1 = s;
+  		    
   		  }
 
   		  @Override
@@ -33,18 +43,22 @@ public class MyMain {
   		    System.out.println("The read failed: " + databaseError.getCode());
   		  }
   		});
+
+    	obj.SleepThread(10000);
+    	//System.out.println("Helllllooo OUT 3");
+    	System.out.println("Helllllooo OUT 2" + org1.allEmp.size());
     	
-    	//obj.SleepThread(100000);
-    	
-    	Employee emp1 = new Employee("name", 25, "empId" , 5.6f, 2.5f);
-    	emp1.attendancePunch();
-    	obj.SleepThread(1000);
-    	emp1.attendancePunch();
+		//org1.addEmp("ndffdfsdame", 2 , 5.5f, 2.4f);
+  	    //org1.punch("empId0");
+    	//obj.SleepThread(1000);
+    	//org1.punch("empId1");
     	//emp1.getHrs(0);
-    	System.out.println("Salary " + emp1.calSalary());
+    	System.out.println("Salary "+ org1.allEmp.size() );
     	
-    	obj.saveData("Emp1", emp1);
+    	obj.saveData("Organisation", org1);
     	obj.SleepThread(100000);
+
+    	System.out.println("Helllllooo OUT 4");
     	
     }
 }

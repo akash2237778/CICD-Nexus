@@ -55,4 +55,7 @@ public class Firebase {
 	 public void saveData(String child, Employee value) {
 		 dbref.child(child).setValueAsync(value);
 	 }
+	 public void saveData(String child, Organisation value) {
+		 dbref.child(child).setValueAsync(value);
+	 }
 }
