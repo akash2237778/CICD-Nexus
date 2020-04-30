@@ -22,62 +22,33 @@ public class MyMain {
     //	System.out.print("Hello");
     	DatabaseReference ref;
     	Firebase obj = new Firebase();
-    	ref = obj.setRef("/Organisation");
-    //	org1 = new Organisation();
+    	ref = obj.setRef("/");
+    /*	org1 = new Organisation();
     	//System.out.println("1");	
-		//org1.addEmp("nd", 5 , 5.55f, 2.4f);
-	//	org1.addEmp("cddnd", 5 , 5.55f, 2.4f);
-  	//    org1.punch("empId0");
-    	//obj.SleepThread(1000);
-    	//org1.punch("empId1");
+		org1.addEmp("nd", 5 , 5.55f, 2.4f);
+		org1.addEmp("cddnd", 5 , 5.55f, 2.4f);
+  	    org1.punch("empId0");
+  	  org1.punch("empId1");
+    	obj.SleepThread(1000);
+    	org1.punch("empId0");
+    	org1.punch("empId1");
+    	org1.punch("empId1");
     	//emp1.getHrs(0);
     	//System.out.println("Salary "+ org1.allEmp.size() );    	
-    //	obj.saveData("Organisation", org1);
+    	obj.saveData("Organisation", org1);*/
     	
     	
-    	String Total = obj.retriveData();
-    	
-    	//String[] arr = Total.split("=");
-
-    	Total =Total.replace("={", "\" : {");
-
-    	Total =Total.replace("=[", "\" : [");
-    	Total =Total.replace("=", "\" : \"");
-    	Total = Total.replace("{", "{ \"");
-    	Total = Total.replace(", ", "\" , \"");
-
-    	Total = Total.replace("}\"", "\" } ");
-    	Total = Total.replace("}]\"", "\"}]");
-    	Total = Total.replace("0}", "0\"}");
-    	Total = Total.replace("st\" : [",     "st\" : [ \"");
-    	Total = Total.replace("]\" , \"a", "\"] , \"a");
-    	
-    	
-    	
-    
-
-    	System.out.println(Total.charAt(29) +"   :  " +Total);
-    	
-    	JSONObject jresponse = new JSONObject(Total);
-    	//JSONArray arr = jresponse.getJSONArray("currentlyWorking");
-    	//jresponse = new JSONObject(arr.get(0));
+    	String JSONstr = obj.convertToJSON(obj.retriveData("/Organisation"));
+    	System.out.println(JSONstr);
     	Gson g = new Gson(); 
-    	Organisation p = g.fromJson(Total, Organisation.class);
-    	//Total = Total.replace("[", "");
-    	//JSONArray arr = new JSONArray(Total);
- //   	JSONObject jObj = new JSONObject(Total);
-  //  	String date = jObj.getString("NeededString");
-    	//String reu
-    	//obj.retriveData("allEmp/empId0"+"/name");
-    	/*for(int i=0 ; i < Total ; i++) {
-    		org1.addEmp("222", 5 , 5.55f, 2.4f);
-    		System.out.print(obj.retriveData("allEmp/empId"+i+"/name"));
-    	}*/
-    	
-    //	obj.SleepThread(100000);
-    	//p.addEmp("cddnd", 5 , 5.55f, 2.4f);
-    	System.out.println("Helllllooo OUT :" + p.id );
-    	
+    	Organisation p = g.fromJson(JSONstr, Organisation.class);
+    	p.addEmp("cddnd", 5 , 5.55f, 2.4f);
+    	p.punch("empId0");
+
+    	//p.punch("empId0");
+    	System.out.println("Helllllooo OUT :" + p.allEmp.get("empId0").inTimeList.get(0)  +"    " 	);//p.allEmp.get("empId0").calSalary() );
+    	obj.saveData("Organisation", p);
+    	obj.SleepThread(100000);
     }
     
     

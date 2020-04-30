@@ -10,10 +10,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 public class Firebase {
 	FirebaseDatabase db;
 	DatabaseReference dbref;
 	String result;
+	
 	
 	 public Firebase() {
 		 try {
@@ -59,9 +61,9 @@ public class Firebase {
 	 public void saveData(String child, Organisation value) {
 		 dbref.child(child).setValueAsync(value);
 	 }
-	 public String retriveData() {
+	 public String retriveData(String child) {
 		 int i =0;
-			 dbref.addValueEventListener(new ValueEventListener() {
+			 dbref.child(child).addValueEventListener(new ValueEventListener() {
 	   		  @Override
 	   		  public void onDataChange(DataSnapshot dataSnapshot) {
 	   		    result = dataSnapshot.getValue().toString();
@@ -89,4 +91,22 @@ public class Firebase {
 				 return result;
 			 }
 		 }
+	 
+	 public String convertToJSON(String Total) {
+		 	Total =Total.replace("={", "\" : {");
+	    	Total =Total.replace("=[", "\" : [");
+	    	Total =Total.replace("=", "\" : \"");
+	    	Total = Total.replace("{", "{ \"");
+	    	Total = Total.replace(", ", "\" , \"");
+	    	Total = Total.replace("}\"", "\" } ");
+	    	Total = Total.replace("}]\"", "\"}]");
+	    	Total = Total.replace("0}", "0\"}");
+	    	Total = Total.replace("st\" : [",     "st\" : [ \"");
+	    	Total = Total.replace("]\" , \"", "\"] , \"");
+	    	Total = Total.replace("d\" : [", "d\" : [\"");
+	    	
+	    	return Total;
+	 }
+	 
+
 }
