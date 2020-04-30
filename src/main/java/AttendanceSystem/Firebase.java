@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Firebase {
 	FirebaseDatabase db;
 	DatabaseReference dbref;
+	String result;
 	
 	 public Firebase() {
 		 try {
@@ -58,4 +59,34 @@ public class Firebase {
 	 public void saveData(String child, Organisation value) {
 		 dbref.child(child).setValueAsync(value);
 	 }
+	 public String retriveData() {
+		 int i =0;
+			 dbref.addValueEventListener(new ValueEventListener() {
+	   		  @Override
+	   		  public void onDataChange(DataSnapshot dataSnapshot) {
+	   		    result = dataSnapshot.getValue().toString();
+	   		    System.out.println( result);
+	   		  }
+	
+	   		  @Override
+	   		  public void onCancelled(DatabaseError databaseError) {
+	   		    System.out.println("The read failed: " + databaseError.getCode());
+	   		  }
+	   		});
+			 while(result == null) {
+				System.out.println(result + "     " + i);
+				
+				 i++;
+	
+			 }
+			 //SleepThread(100);
+			 if(result == null) {
+				 System.out.println(result + "     5ddd");
+			 return "5";
+			 }
+			 else {
+				 System.out.println(result + "     5returning.....");
+				 return result;
+			 }
+		 }
 }

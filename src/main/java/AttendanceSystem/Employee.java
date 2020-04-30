@@ -1,6 +1,8 @@
 package AttendanceSystem;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -12,14 +14,16 @@ public class Employee{
     public String empId;
     public float overtimeRate;
     public float salaryPerDay;
-    public Date inTime;
-    public Date outTime;
+    //protected Date inTime;
+    public long inTimeStr;
+    //protected Date outTime;
+    public long outTimeStr;
     public Boolean isWorking;
-    public List<Date> inTimeList;
-    public List<Date> outTimeList;
+    public List<Long> inTimeList;
+    public List<Long> outTimeList;
     public List<Long> hrsWorked;
     public int workingHrs;
-    public Date startDay;
+    private long startDay;
     public int totalDays;
     public int totalHrsWorked;
     public int overTimeHrs;
@@ -33,11 +37,11 @@ public class Employee{
         this.overtimeRate = overtimeRate;
         this.salaryPerDay = salaryPerDay;
         isWorking = false;
-        inTimeList = new ArrayList<Date>();
-        outTimeList = new ArrayList<Date>();
+        inTimeList = new ArrayList<Long>();
+        outTimeList = new ArrayList<Long>();
         hrsWorked = new ArrayList<Long>();
         workingHrs = 8;
-        startDay = new Date();
+        startDay = new Date().getTime();
     }
     
     
@@ -81,7 +85,7 @@ public class Employee{
 		this.salaryPerDay = salaryPerDay;
 	}
 
-	public Date getInTime() {
+/*	public Date getInTime() {
 		return inTime;
 	}
 
@@ -95,7 +99,7 @@ public class Employee{
 
 	public void setOutTime(Date outTime) {
 		this.outTime = outTime;
-	}
+	}*/
 
 	public Boolean getIsWorking() {
 		return isWorking;
@@ -105,19 +109,19 @@ public class Employee{
 		this.isWorking = isWorking;
 	}
 
-	public List<Date> getInTimeList() {
+	public List<Long> getInTimeList() {
 		return inTimeList;
 	}
 
-	public void setInTimeList(List<Date> inTimeList) {
+	public void setInTimeList(List<Long> inTimeList) {
 		this.inTimeList = inTimeList;
 	}
 
-	public List<Date> getOutTimeList() {
+	public List<Long> getOutTimeList() {
 		return outTimeList;
 	}
 
-	public void setOutTimeList(List<Date> outTimeList) {
+	public void setOutTimeList(List<Long> outTimeList) {
 		this.outTimeList = outTimeList;
 	}
 
@@ -137,11 +141,11 @@ public class Employee{
 		this.workingHrs = workingHrs;
 	}
 
-	public Date getStartDay() {
+	public Long getStartDay() {
 		return startDay;
 	}
 
-	public void setStartDay(Date startDay) {
+	public void setStartDay(Long startDay) {
 		this.startDay = startDay;
 	}
 
@@ -186,13 +190,15 @@ public class Employee{
     public boolean attendancePunch() {
     	if(isWorking) {
     		//exit
-    		outTime = new Date();
-    		outTimeList.add(outTime);
+    		Date outTime = new Date();
+    		outTimeStr = outTime.getTime();
+    		outTimeList.add(outTimeStr);
     		isWorking = false;
     		System.out.println("Exit " + name + " : " + outTime.toString());
     	}else {
-    		inTime = new Date();
-    		inTimeList.add(inTime);
+    		Date inTime = new Date();
+    		inTimeStr = inTime.getTime();
+    		inTimeList.add(inTimeStr);
     		isWorking = true;
     		System.out.println("In Time " + name + " : " + inTime.toString());
     	}
@@ -200,7 +206,8 @@ public class Employee{
     }
     
     public void getHrs(int index) {
-    	long diff = outTimeList.get(index).getTime() - inTimeList.get(index).getTime(); 
+    	long diff = 0;
+			diff = outTimeList.get(index) - inTimeList.get(index);
 		long diffHours = diff / (60 * 60 * 1000);
 		hrsWorked.add(diffHours);
 		//System.out.println(diff);
@@ -209,7 +216,8 @@ public class Employee{
     //Days Worked
     public int getDays() {
     	Date currentDay = new Date();
-    	long diff = currentDay.getTime() - startDay.getTime(); 
+    	long diff = 0;
+			diff = currentDay.getTime() - startDay;
     	long diffDays = diff / (24 * 60 * 60 * 1000);
     	totalDays = (int)diffDays;
     	daysWorked = inTimeList.size();
