@@ -42,11 +42,12 @@ public class MyMain {
     	System.out.println(JSONstr);
     	Gson g = new Gson(); 
     	Organisation p = g.fromJson(JSONstr, Organisation.class);
-    	p.addEmp("cddnd", 5 , 5.55f, 2.4f);
+    	p.addEmp("cddndsdsd", 55 , 5.55f, 2.4f);
     	p.punch("empId0");
+    	p.punch("empId1");
 
     	//p.punch("empId0");
-    	System.out.println("Helllllooo OUT :" + p.allEmp.get("empId0").inTimeList.get(0)  +"    " 	);//p.allEmp.get("empId0").calSalary() );
+    	//System.out.println("Helllllooo OUT :" + p.allEmp.get("empId0").inTimeList.get(0)  +"    " 	);//p.allEmp.get("empId0").calSalary() );
     	obj.saveData("Organisation", p);
     	obj.SleepThread(100000);
     }

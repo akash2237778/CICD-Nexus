@@ -214,7 +214,7 @@ public class Employee{
     }
     
     //Days Worked
-    public int getDays() {
+  /*  public int getDays() {
     	Date currentDay = new Date();
     	long diff = 0;
 			diff = currentDay.getTime() - startDay;
@@ -226,7 +226,7 @@ public class Employee{
     	
     }
     
-    public int getTotalHrs() {
+ /*   public int getTotalHrs() {
     	int i=0;
     	while(i < outTimeList.size()) {
     		getHrs(i);
@@ -248,6 +248,6 @@ public class Employee{
     	salary = (long) (getOverTimeHrs()*overtimeRate + getDays()*salaryPerDay);
     	return salary<0? 0 : salary;
     }
-    
+    */
     
 }

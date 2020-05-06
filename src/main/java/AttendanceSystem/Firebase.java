@@ -104,6 +104,7 @@ public class Firebase {
 	    	Total = Total.replace("st\" : [",     "st\" : [ \"");
 	    	Total = Total.replace("]\" , \"", "\"] , \"");
 	    	Total = Total.replace("d\" : [", "d\" : [\"");
+	    	Total = Total.replace(", \"{",", {");
 	    	
 	    	return Total;
 	 }
