@@ -48,6 +48,8 @@ public class Firebase {
 	 public void saveData(String child, String value) {
 		 dbref.child(child).setValueAsync(value);
 	 }
+	 
+	 
 	 public void SleepThread(int time) {
 		 try {
 				Thread.sleep(time);
@@ -55,6 +57,8 @@ public class Firebase {
 				e.printStackTrace();
 			}
 	 }
+	 
+	 
 	 public void saveData(String child, Employee value) {
 		 dbref.child(child).setValueAsync(value);
 	 }
@@ -76,18 +80,18 @@ public class Firebase {
 	   		  }
 	   		});
 			 while(result == null) {
-				System.out.println(result + "     " + i);
+				System.out.println( "Retriving.....     " );
 				
 				 i++;
 	
 			 }
 			 //SleepThread(100);
 			 if(result == null) {
-				 System.out.println(result + "     5ddd");
+				// System.out.println(result + "     ");
 			 return "5";
 			 }
 			 else {
-				 System.out.println(result + "     5returning.....");
+				//System.out.println(result + "     5returning.....");
 				 return result;
 			 }
 		 }
@@ -107,6 +111,15 @@ public class Firebase {
 	    	Total = Total.replace(", \"{",", {");
 	    	
 	    	return Total;
+	 }
+	 
+	 public Organisation addEmptoOrg(Organisation org , String nam, int age,  float overtimeRate, float salaryPerDay) {
+		 org.addEmp(  nam , age, overtimeRate, salaryPerDay);
+		 org.punch("empId"+(org.id-1));
+		 org.punch("empId"+(org.id-1));
+		 saveData("Organisation", org);
+		 SleepThread(100000);
+		 return org;
 	 }
 	 
 

@@ -19,38 +19,44 @@ public class MyMain {
 	public static Organisation org1;
 
     public synchronized static void main(String[] args) {
-    //	System.out.print("Hello");
     	DatabaseReference ref;
     	Firebase obj = new Firebase();
     	ref = obj.setRef("/");
-    /*	org1 = new Organisation();
-    	//System.out.println("1");	
-		org1.addEmp("nd", 5 , 5.55f, 2.4f);
-		org1.addEmp("cddnd", 5 , 5.55f, 2.4f);
-  	    org1.punch("empId0");
-  	  org1.punch("empId1");
-    	obj.SleepThread(1000);
-    	org1.punch("empId0");
-    	org1.punch("empId1");
-    	org1.punch("empId1");
-    	//emp1.getHrs(0);
-    	//System.out.println("Salary "+ org1.allEmp.size() );    	
-    	obj.saveData("Organisation", org1);*/
+    
+    	Organisation s = new Organisation();
+    	s.addEmp("ABCD", 19, 4.2f, 250);
+    	s.addEmp("DEFG", 20, 3.6f , 300);
+    	s.addEmp("GHIJ", 36, 6.3f , 150);
+    	s.addEmp("KLMN", 28, 3.3f , 150);
+    	s.addEmp("OPQR", 29, 4.2f , 150);
+    	s.punch("empId0");
+    	s.punch("empId1");
+    	s.punch("empId2");
+    	s.punch("empId3");
+    	s.punch("empId4");
+    	s.punch("empId0");
+    	s.punch("empId1");
+    	s.punch("empId2");
+    	s.punch("empId3");
+    	s.punch("empId4");
+    	obj.saveData("Organisation", s);
+    	obj.SleepThread(100000);
     	
     	
     	String JSONstr = obj.convertToJSON(obj.retriveData("/Organisation"));
-    	System.out.println(JSONstr);
+    	
     	Gson g = new Gson(); 
     	Organisation p = g.fromJson(JSONstr, Organisation.class);
-    	p.addEmp("cddndsdsd", 55 , 5.55f, 2.4f);
-    	p.punch("empId0");
-    	p.punch("empId1");
+    	System.out.println(JSONstr);
 
-    	//p.punch("empId0");
+
+    	p.punch("empId0");
     	//System.out.println("Helllllooo OUT :" + p.allEmp.get("empId0").inTimeList.get(0)  +"    " 	);//p.allEmp.get("empId0").calSalary() );
     	obj.saveData("Organisation", p);
     	obj.SleepThread(100000);
     }
+    
+    
     
     
 }
