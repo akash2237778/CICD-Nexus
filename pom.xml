@@ -28,4 +28,18 @@
 </dependency>
 
   </dependencies>
+
+  <properties>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+  </properties>
+
+<distributionManagement>
+  <snapshotRepository>
+    <id>CICD</id>
+    <name>CICD</name>
+    <url>http://localhost:8081/repository/CICD/</url>
+  </snapshotRepository>
+</distributionManagement>
+
 </project>
